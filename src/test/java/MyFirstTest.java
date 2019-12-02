@@ -35,10 +35,12 @@ public class MyFirstTest extends TestConfig {
     @Test
     public void myFourthTest(){
         given()
+                .spec(videoGame_requestSpecification)
                 .log()
                 .all()
                 .when().get("/videogames/2")
                 .then()
+                .spec(responseSpecification)
                 .log()
                 .all();
     }

@@ -31,4 +31,21 @@ public class VideoGameDBTests extends TestConfig {
                 .log().all();
     }
 
+    @Test
+    public void createNewGameByXML(){
+        String gameBodyXML = "<videoGame category=\"Driving\" rating=\"Universal\">\n" +
+                "    <id>19</id>\n" +
+                "    <name>Gran Turismo 5</name>\n" +
+                "    <releaseDate>2001-03-10T00:00:00-03:00</releaseDate>\n" +
+                "    <reviewScore>93</reviewScore>\n" +
+                "  </videoGame>";
+
+        given()
+            .body(gameBodyXML)
+            .log().all()
+        .when().post(EndPoint.VIDEOGAMES)
+        .then()
+            .log().all();
+    }
+
 }

@@ -23,8 +23,8 @@ public class TestConfig {
                 .setBaseUri("http://localhost")
                 .setPort(8080)
                 .setBasePath("/app")
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/xml")
+                .addHeader("Accept", "application/xml")
                 .build();
 
         football_requestSpecification = new RequestSpecBuilder()

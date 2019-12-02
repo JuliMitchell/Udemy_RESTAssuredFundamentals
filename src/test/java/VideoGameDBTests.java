@@ -48,4 +48,23 @@ public class VideoGameDBTests extends TestConfig {
             .log().all();
     }
 
+    @Test
+    public void updateGame(){
+        String gameBody = "{\n" +
+                "    \"id\": 2,\n" +
+                "    \"name\": \"Gran Turismo 3\",\n" +
+                "    \"releaseDate\": \"2001-03-10\",\n" +
+                "    \"reviewScore\": 90,\n" +
+                "    \"category\": \"Driving\",\n" +
+                "    \"rating\": \"Universal\"\n" +
+                "  }";
+
+        given()
+                .body(gameBody)
+                .log().all()
+        .when().put(EndPoint.VIDEOGAMES + "/2")
+        .then()
+                .log().all();
+    }
+
 }

@@ -67,4 +67,18 @@ public class VideoGameDBTests extends TestConfig {
                 .log().all();
     }
 
+    @Test
+    public void deleteGame(){
+        given().when().delete(EndPoint.VIDEOGAMES+ "/11").then().log().all();
+    }
+
+    @Test
+    public void getSingleGame(){
+        given()
+                .pathParam("videoGameId", 5)
+        .when()
+                .get( EndPoint.VIDEOGAMES + "/{videoGameId}")
+        .then()
+                .log().all();
+    }
 }

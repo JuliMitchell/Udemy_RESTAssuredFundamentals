@@ -10,5 +10,7 @@ public class TestConfig {
         RestAssured.baseURI = "http://localhost";
         RestAssured.port = 8080;
         RestAssured.basePath = "/app";
+
+        //RestAssured.proxy("localhost", 8888);
     }
 }

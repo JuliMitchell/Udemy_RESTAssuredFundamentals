@@ -13,4 +13,34 @@ public class MyFirstTest extends TestConfig {
         .when().get("/videogames/2")
         .then().statusCode(200);
     }
+
+    @Test
+    public void mySecondTest(){
+        given()
+                .log()
+                .all()
+                .when().get("/videogames/2")
+                .then().statusCode(200);
+    }
+
+    @Test
+    public void myThirdTest(){
+        given()
+                .log()
+                .ifValidationFails()
+                .when().get("/videogames/2")
+                .then().statusCode(201);
+    }
+
+    @Test
+    public void myFourthTest(){
+        given()
+                .log()
+                .all()
+                .when().get("/videogames/2")
+                .then()
+                .log()
+                .all()
+                .statusCode(200);
+    }
 }

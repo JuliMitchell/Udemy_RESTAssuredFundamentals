@@ -40,7 +40,6 @@ public class MyFirstTest extends TestConfig {
                 .when().get("/videogames/2")
                 .then()
                 .log()
-                .all()
-                .statusCode(200);
+                .all();
     }
 }

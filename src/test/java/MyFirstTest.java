@@ -1,5 +1,6 @@
 
 
+import config.EndPoint;
 import config.TestConfig;
 import org.junit.Test;
 
@@ -41,6 +42,14 @@ public class MyFirstTest extends TestConfig {
                 .when().get("/videogames/2")
                 .then()
                 .spec(responseSpecification)
+                .log()
+                .all();
+    }
+
+    @Test
+    public void myFifthTest(){
+        when().get(EndPoint.GET_VIDEOGAMES)
+                .then()
                 .log()
                 .all();
     }

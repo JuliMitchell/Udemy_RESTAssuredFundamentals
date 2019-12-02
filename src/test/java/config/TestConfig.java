@@ -28,8 +28,9 @@ public class TestConfig {
                 .build();
 
         football_requestSpecification = new RequestSpecBuilder()
-                .setBaseUri("http://api.football-data.org/")
+                .setBaseUri("http://api.football-data.org")
                 .setBasePath("/v2")
+                .addHeader("X-Auth-Token", "a64bb1b7c3ba479e8f7078f2891d9b36")
                 .addHeader("X-Response-Control", "minified")
                 .build();
 

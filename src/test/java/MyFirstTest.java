@@ -48,7 +48,7 @@ public class MyFirstTest extends TestConfig {
 
     @Test
     public void myFifthTest(){
-        when().get(EndPoint.GET_VIDEOGAMES)
+        when().get(EndPoint.VIDEOGAMES)
                 .then()
                 .log()
                 .all();

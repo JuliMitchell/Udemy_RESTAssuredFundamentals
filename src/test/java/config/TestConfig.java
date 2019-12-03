@@ -24,8 +24,8 @@ public class TestConfig {
                 .setBaseUri("http://localhost")
                 .setPort(8080)
                 .setBasePath("/app")
-                .addHeader("Content-Type", "application/json")
-                .addHeader("Accept", "application/json")
+                .addHeader("Content-Type", "application/xml")
+                .addHeader("Accept", "application/xml")
                 .build();
 
         football_requestSpecification = new RequestSpecBuilder()
@@ -35,7 +35,7 @@ public class TestConfig {
                 .addHeader("X-Response-Control", "minified")
                 .build();
 
-        RestAssured.requestSpecification = football_requestSpecification;
+        RestAssured.requestSpecification = videoGame_requestSpecification;
 
         responseSpecification = new ResponseSpecBuilder()
                 .expectStatusCode(200)

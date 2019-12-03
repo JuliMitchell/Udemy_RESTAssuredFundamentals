@@ -35,7 +35,7 @@ public class TestConfig {
                 .addHeader("X-Response-Control", "minified")
                 .build();
 
-        RestAssured.requestSpecification = videoGame_requestSpecification;
+        RestAssured.requestSpecification = football_requestSpecification;
 
         responseSpecification = new ResponseSpecBuilder()
                 .expectStatusCode(200)

@@ -1,5 +1,6 @@
 import config.TestConfig;
 import io.restassured.http.ContentType;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -63,5 +64,24 @@ public class FootballTests extends TestConfig {
 
         System.out.println(jsonResponseAsString);
 
+    }
+
+    @Test
+    public void getHeaders(){
+        Response response =
+                given()
+                    .spec(football_requestSpecification)
+                .when().get("/competitions/2013/teams")
+                .then()
+                    .contentType(ContentType.JSON)
+                    .extract().response();
+
+        Headers headers = response.getHeaders();
+
+        System.out.println("Headers: ");
+        headers.asList().stream().forEach(header -> System.out.println(header));
+
+        String client = response.getHeader("X-Authenticated-Client");
+        System.out.println("Client: " + client);
     }
 }

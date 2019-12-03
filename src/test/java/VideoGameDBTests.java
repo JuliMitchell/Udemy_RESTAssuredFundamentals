@@ -3,6 +3,7 @@ import config.TestConfig;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.matchesXsdInClasspath;
 
 public class VideoGameDBTests extends TestConfig {
 
@@ -91,5 +92,15 @@ public class VideoGameDBTests extends TestConfig {
         .when().post(EndPoint.VIDEOGAMES)
         .then()
             .log().all();
+    }
+
+    @Test
+    public void testVideoGameSchemaXML(){
+        given()
+            .pathParam("videoGameId", 6)
+        .when()
+            .get(EndPoint.VIDEOGAMES + "/{videoGameId}")
+        .then()
+            .body(matchesXsdInClasspath("VideoGame.xsd"));
     }
 }

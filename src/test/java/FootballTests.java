@@ -26,4 +26,13 @@ public class FootballTests extends TestConfig {
         .then()
             .body("count", equalTo(20));
     }
+
+    @Test
+    public void getFirstTeamName(){
+        given()
+            .spec(football_requestSpecification)
+        .when().get("/competitions/2013/teams")
+        .then()
+            .body("teams.name[0]", equalTo("Fluminense FC"));
+    }
 }

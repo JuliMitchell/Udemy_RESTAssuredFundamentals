@@ -1,6 +1,6 @@
 import config.TestConfig;
-import io.restassured.RestAssured.*;
 import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import static io.restassured.RestAssured.*;
 
@@ -16,5 +16,14 @@ public class FootballTests extends TestConfig {
             .get("/competitions")
         .then()
             .log().all();
+    }
+
+    @Test
+    public void getTeamCount(){
+        given()
+            .spec(football_requestSpecification)
+        .when().get("/competitions/2013/teams")
+        .then()
+            .body("count", equalTo(20));
     }
 }

@@ -6,6 +6,7 @@ import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import org.junit.BeforeClass;
+import static org.hamcrest.Matchers.lessThan;
 
 public class TestConfig {
 
@@ -38,6 +39,7 @@ public class TestConfig {
 
         responseSpecification = new ResponseSpecBuilder()
                 .expectStatusCode(200)
+                .expectResponseTime(lessThan(3000L))
                 .build();
 
         RestAssured.responseSpecification = responseSpecification;

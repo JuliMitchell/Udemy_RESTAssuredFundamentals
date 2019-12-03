@@ -1,8 +1,12 @@
 import config.EndPoint;
 import config.TestConfig;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.*;
+import static io.restassured.matcher.RestAssuredMatchers.matchesXsdInClasspath;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class VideoGameDBTests extends TestConfig {
 
@@ -80,5 +84,52 @@ public class VideoGameDBTests extends TestConfig {
                 .get( EndPoint.VIDEOGAMES + "/{videoGameId}")
         .then()
                 .log().all();
+    }
+
+    @Test
+    public void testSerialisationJSON(){
+        VideoGame videoGame = new VideoGame("87", "2019-01-04", "GTA V", "10", "21", "Mature");
+
+        given()
+            .body(videoGame)
+        .when().post(EndPoint.VIDEOGAMES)
+        .then()
+            .log().all();
+    }
+
+    @Test
+    public void testVideoGameSchemaXML(){
+        given()
+            .pathParam("videoGameId", 6)
+        .when()
+            .get(EndPoint.VIDEOGAMES + "/{videoGameId}")
+        .then()
+            .body(matchesXsdInClasspath("VideoGame.xsd"));
+    }
+
+    @Test
+    public void testVideoGameSchemaJSON(){
+        given()
+                .pathParam("videoGameId", 6)
+                .when()
+                .get(EndPoint.VIDEOGAMES + "/{videoGameId}")
+                .then()
+                .body(matchesJsonSchemaInClasspath("VideoGame.json"));
+    }
+
+    @Test
+    public void convertJsonToPOJO(){
+        Response response =
+            given()
+                .pathParam("videoGameId", 6)
+            .when()
+                .get(EndPoint.VIDEOGAMES + "/{videoGameId}")
+            .then()
+                .contentType(ContentType.JSON)
+                .extract().response();
+
+        VideoGame videoGame = response.getBody().as(VideoGame.class);
+
+        System.out.println("Name: " + videoGame.getName());
     }
 }

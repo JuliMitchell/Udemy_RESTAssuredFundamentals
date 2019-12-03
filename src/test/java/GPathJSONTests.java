@@ -30,4 +30,25 @@ public class GPathJSONTests extends TestConfig {
         System.out.println("Players in the squad: ");
         squadPlayersName.stream().forEach(playerName -> System.out.println(playerName));
     }
+
+    @Test
+    public void extractSingleValueWithHighestId(){
+        Response response = get("/teams/57");
+        String playerNameMaxId = response.path("squad.max {it.id}.name");
+        System.out.println("The player with the highest id number is " + playerNameMaxId);
+    }
+
+    @Test
+    public void extractSingleValueWithLowestId(){
+        Response response = get("/teams/57");
+        String playerNameMinId = response.path("squad.min {it.id}.name");
+        System.out.println("The player with the lowest id number is " + playerNameMinId);
+    }
+
+    @Test
+    public void extractMultipleValuesAndSumThem(){
+        Response response = get("/teams/57");
+        int sumOfShirtNumbers = response.path("squad.collect {it.id}.sum()");
+        System.out.println("Sum: " + sumOfShirtNumbers);
+    }
 }

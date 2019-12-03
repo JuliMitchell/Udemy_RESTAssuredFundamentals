@@ -1,4 +1,6 @@
 import config.TestConfig;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -34,5 +36,32 @@ public class FootballTests extends TestConfig {
         .when().get("/competitions/2013/teams")
         .then()
             .body("teams.name[0]", equalTo("Fluminense FC"));
+    }
+
+    @Test
+    public void getAllTeamData(){
+        String responseBody =
+                given()
+                    .spec(football_requestSpecification)
+                .when().get("/competitions/2013/teams")
+                    .asString();
+        System.out.println(responseBody);
+    }
+
+    @Test
+    public void getAllTeamDataThenConvert(){
+        Response response =
+                given()
+                    .spec(football_requestSpecification)
+                .when()
+                    .get("/competitions/2013/teams")
+                .then()
+                    .contentType(ContentType.JSON)
+                    .extract().response();
+
+        String jsonResponseAsString = response.asString();
+
+        System.out.println(jsonResponseAsString);
+
     }
 }

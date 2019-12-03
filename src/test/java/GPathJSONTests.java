@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.get;
 
@@ -50,5 +51,24 @@ public class GPathJSONTests extends TestConfig {
         Response response = get("/teams/57");
         int sumOfShirtNumbers = response.path("squad.collect {it.id}.sum()");
         System.out.println("Sum: " + sumOfShirtNumbers);
+    }
+
+    @Test
+    public void extractSingleValueWithFindAndFindAll(){
+        Response response = get("/teams/57");
+        String playersWithNumber = response.path("squad.findAll {it.shirtNumber != null}.min {it.shirtNumber}.name");
+        System.out.println(playersWithNumber);
+    }
+
+    @Test
+    public void extractMultipleValuesWithParameters(){
+
+        Response response = get("/teams/57");
+
+        String position = "Defender";
+        String nationality = "Greece";
+        Map<String,?> certainPlayer = response.path("squad.findAll {it.position == '%s'}.find {it.nationality == '%s'}", position, nationality);
+
+        System.out.println(certainPlayer);
     }
 }
